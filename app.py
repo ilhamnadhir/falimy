@@ -15,6 +15,7 @@ def init_db():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         age INTEGER,
+        gender TEXT,
         photo TEXT
     )''')
     conn.commit()
@@ -27,6 +28,7 @@ def index():
     if request.method == "POST":
         name = request.form["name"]
         age = request.form["age"]
+        gender = request.form["gender"]
         photo = request.files["photo"]
 
         if photo:
@@ -38,7 +40,7 @@ def index():
 
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
-        c.execute("INSERT INTO users (name, age, photo) VALUES (?, ?, ?)", (name, age, filename))
+        c.execute("INSERT INTO users (name, age, gender, photo) VALUES (?, ?, ?, ?)", (name, age, gender, filename))
         conn.commit()
         conn.close()
         return redirect(url_for("match", username=name))
@@ -48,17 +50,40 @@ def index():
 def match(username):
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE name != ?", (username,))
-    others = c.fetchall()
+
+    # Get the current user
+    c.execute("SELECT * FROM users WHERE name = ?", (username,))
+    current_user = c.fetchone()
+
+    # Select possible mothers (female, not current user)
+    c.execute("SELECT DISTINCT * FROM users WHERE gender = 'Female' AND name != ?", (username,))
+    females = c.fetchall()
+
+    # Select possible fathers (male, not current user)
+    c.execute("SELECT DISTINCT * FROM users WHERE gender = 'Male' AND name != ?", (username,))
+    males = c.fetchall()
+
+    # All others for siblings (excluding chosen mother and father later)
+    c.execute("SELECT DISTINCT * FROM users WHERE name != ?", (username,))
+    all_others = c.fetchall()
+
     conn.close()
 
-    if len(others) < 2:
-        return "Not enough users in the database to find a family yet!"
+    if not females or not males or len(all_others) < 3:
+        return "Not enough users in the database to find a full family yet!"
 
-    mother = random.choice(others)
-    father = random.choice([o for o in others if o != mother])
+    mother = random.choice(females)
+    father = random.choice(males)
 
-    return render_template("match.html", username=username, mother=mother, father=father)
+    # Exclude current user, mother, father from sibling candidates
+    sibling_candidates = [p for p in all_others if p != mother and p != father]
+    sibling = random.choice(sibling_candidates)
+
+    sibling_role = "Brother" if sibling[3] == "Male" else "Sister"
+
+    return render_template("match.html", username=username,
+                           mother=mother, father=father,
+                           sibling=sibling, sibling_role=sibling_role)
 
 if __name__ == "__main__":
     app.run(debug=True)

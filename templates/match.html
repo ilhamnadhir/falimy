@@ -1,22 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Family</title>
+    <title>Your Family Tree</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .tree-level {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 20px 0;
+        }
+
+        .family-member {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 0 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 150px;
+        }
+
+        .family-member img {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .connector {
+            height: 40px;
+            width: 2px;
+            background: black;
+            margin: auto;
+        }
+
+        .horizontal-connector {
+            height: 2px;
+            background: black;
+            width: 300px;
+        }
+
+        .parent-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .children {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ username }}'s New Family</h1>
+    <h1>{{ username }}'s Family Tree</h1>
+    <div class="tree">
+        
+        <!-- Parents -->
+        <div class="tree-level">
+            <div class="family-member">
+                <h2>Mother</h2>
+                <img src="{{ url_for('static', filename='uploads/' + mother[4]) }}" alt="Mother">
+                <p>{{ mother[1] }}, {{ mother[2] }} ({{ mother[3] }})</p>
+            </div>
+            <div class="family-member">
+                <h2>Father</h2>
+                <img src="{{ url_for('static', filename='uploads/' + father[4]) }}" alt="Father">
+                <p>{{ father[1] }}, {{ father[2] }} ({{ father[3] }})</p>
+            </div>
+        </div>
 
-    <div class="family-member">
-        <h2>Mother</h2>
-        <img src="{{ url_for('static', filename='uploads/' + mother[3]) }}" alt="Mother" width="150">
-        <p>{{ mother[1] }}, Age {{ mother[2] }}</p>
-    </div>
+        <!-- Connectors -->
+        <div class="parent-connector">
+            <div class="horizontal-connector"></div>
+            <div class="connector"></div>
+        </div>
 
-    <div class="family-member">
-        <h2>Father</h2>
-        <img src="{{ url_for('static', filename='uploads/' + father[3]) }}" alt="Father" width="150">
-        <p>{{ father[1] }}, Age {{ father[2] }}</p>
+        <!-- Children -->
+        <div class="tree-level children">
+            <div class="family-member">
+                <h2>{{ sibling_role }}</h2>
+                <img src="{{ url_for('static', filename='uploads/' + sibling[4]) }}" alt="{{ sibling_role }}">
+                <p>{{ sibling[1] }}, {{ sibling[2] }} ({{ sibling[3] }})</p>
+            </div>
+            <div class="family-member">
+                <h2>You</h2>
+                <p>{{ username }}</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
