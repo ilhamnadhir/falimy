@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Family</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ username }}'s New Family</h1>
+
+    <div class="family-member">
+        <h2>Mother</h2>
+        <img src="{{ url_for('static', filename='uploads/' + mother[3]) }}" alt="Mother" width="150">
+        <p>{{ mother[1] }}, Age {{ mother[2] }}</p>
+    </div>
+
+    <div class="family-member">
+        <h2>Father</h2>
+        <img src="{{ url_for('static', filename='uploads/' + father[3]) }}" alt="Father" width="150">
+        <p>{{ father[1] }}, Age {{ father[2] }}</p>
+    </div>
+</body>
+</html>
