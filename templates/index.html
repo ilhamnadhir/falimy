@@ -3,27 +3,89 @@
 <head>
     <title>Family Matchmaker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f0f4ff, #d6e0ff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .form-card h1 {
+            margin-bottom: 20px;
+            color: #3b3b5b;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            text-align: left;
+            margin-top: 10px;
+            font-weight: 500;
+            color: #4b4b63;
+        }
+        input, select {
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 5px rgba(99, 102, 241, 0.5);
+        }
+        button {
+            background: #6366f1;
+            color: white;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #4f46e5;
+        }
+    </style>
 </head>
 <body>
-    <h1>Family Matchmaker</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
+    <div class="form-card">
+        <h1>Find Your Random Family</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label>Name:</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
 
-        <label>Age:</label><br>
-        <input type="number" name="age" required><br><br>
+            <label>Age:</label>
+            <input type="number" name="age" placeholder="Enter your age" required>
 
-        <label>Gender:</label><br>
-        <select name="gender" required>
-            <option value="" disabled selected>Select your gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select><br><br>
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
 
-        <label>Photo:</label><br>
-        <input type="file" name="photo" accept="image/*" required><br><br>
+            <label>Photo:</label>
+            <input type="file" name="photo" accept="image/*" required>
 
-        <button type="submit">Find My Family</button>
-    </form>
+            <button type="submit">Find My Family</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -27,3 +27,11 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+.family-member h2 {
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    display: inline;
+    padding: 0;
+}

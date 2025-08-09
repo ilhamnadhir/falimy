@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Users</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f0f4ff, #d6e0ff);
+            padding: 20px;
+        }
+        table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+        th {
+            background: #6366f1;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        img {
+            border-radius: 8px;
+        }
+        .logout {
+            display: inline-block;
+            margin-bottom: 15px;
+            background: #ef4444;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        .logout:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    <table>
+        <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Photo</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+            <td><img src="{{ url_for('static', filename='uploads/' + user[4]) }}" width="80"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
