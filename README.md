@@ -35,10 +35,12 @@ For Software: App is hosted, so run it there
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
+![Screenshot1]<img width="1366" height="738" alt="Your Family Tree - Google Chrome 8_9_2025 8_04_20 AM" src="https://github.com/user-attachments/assets/d3d6c0c2-0b53-45dc-b653-d1bad7fe2e7a" />
+
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+![Screenshot2] <img width="1366" height="738" alt="Your Family Tree - Google Chrome 8_9_2025 8_11_17 AM" src="https://github.com/user-attachments/assets/476ce384-553d-4c49-9e0c-918b90d1050d" />
+
 *Add caption explaining what this shows*
 
 ![Screenshot3](Add screenshot 3 here with proper name)
